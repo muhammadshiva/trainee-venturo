@@ -17,6 +17,8 @@ class LoginController extends GetxController {
       await LocalDBServices.setUser(userResponse.user!);
       await LocalDBServices.setToken(userResponse.token!);
 
+      print('Succes Login');
+
       // If success, go to dashboard page
       Get.offAllNamed('/dashboard');
     } else if (userResponse.statusCode == 422 || userResponse.statusCode == 204) {
