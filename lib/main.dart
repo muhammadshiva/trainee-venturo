@@ -4,6 +4,7 @@ import 'package:coffee_app/configs/theme/light_theme.dart';
 import 'package:coffee_app/constants/commons/constants.dart';
 import 'package:coffee_app/firebase_options.dart';
 import 'package:coffee_app/modules/global_controller/global_binding.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,8 +22,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // Initialize Firebase Analytics
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   Widget build(BuildContext context) {
+    // Firebase Analytics Usage
+    analytics.setCurrentScreen(
+      screenName: 'Initial Screen',
+      screenClassOverride: 'Trainee',
+    );
+
     // Screen Util Init based on application design size
     return ScreenUtilInit(
       designSize: AppConst.appDesignSize,
