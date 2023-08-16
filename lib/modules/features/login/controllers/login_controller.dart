@@ -1,5 +1,6 @@
 import 'package:coffee_app/configs/routes/app_routes.dart';
 import 'package:coffee_app/modules/features/login/repositories/login_repository.dart';
+import 'package:coffee_app/modules/global_controller/global_controller.dart';
 import 'package:coffee_app/modules/models/user.dart';
 import 'package:coffee_app/shared/customs/error_snack_bar.dart';
 import 'package:coffee_app/utils/services/local_db_services.dart';
@@ -9,6 +10,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   static LoginController get to => Get.find<LoginController>();
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+
+    // Delay 1 second
+    await Future.delayed(const Duration(seconds: 1));
+
+    // Check internet connection
+    GlobalController.to.checkConnectivity();
+  }
 
   /// Login using email and password
   Future<void> loginWithEmailAndPassword(String email, String password) async {
