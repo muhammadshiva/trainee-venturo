@@ -28,7 +28,7 @@ class AppPages {
 
       // Dashboard
       GetPage(
-        name: AppRoutes.loginView,
+        name: AppRoutes.dashboardView,
         page: () => DashboardView(),
         binding: DashboardBinding(),
       )
