@@ -9,5 +9,8 @@ class SplashController extends GetxController {
 
     // Delay 1 second
     await Future.delayed(const Duration(seconds: 1));
+
+    // Access Login Page
+    Get.toNamed('/login');
   }
 }
