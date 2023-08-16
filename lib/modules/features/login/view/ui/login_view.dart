@@ -74,7 +74,9 @@ class LoginView extends StatelessWidget {
 
               /// Google Button
               LoginButtonGoogle(
-                onPressed: () {},
+                onPressed: () {
+                  LoginController.to.loginWithGoogle();
+                },
               ),
 
               // LoginButtonGoogle(onPressed: LoginController.to.loginWithGoogle),
