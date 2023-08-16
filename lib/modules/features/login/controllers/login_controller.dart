@@ -1,3 +1,4 @@
+import 'package:coffee_app/configs/routes/app_routes.dart';
 import 'package:coffee_app/modules/features/login/repositories/login_repository.dart';
 import 'package:coffee_app/modules/models/user.dart';
 import 'package:coffee_app/shared/customs/error_snack_bar.dart';
@@ -38,5 +39,13 @@ class LoginController extends GetxController {
         ),
       );
     }
+  }
+
+  /// Logout user
+  Future<void> logout() async {
+    await LocalDBServices.clearToken();
+    await LocalDBServices.clearUser();
+    print('Logout success');
+    Get.offAllNamed(AppRoutes.loginView);
   }
 }
