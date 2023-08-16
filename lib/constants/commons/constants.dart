@@ -5,6 +5,8 @@ class AppConst {
   AppConst._();
 
   // App information
+  static const String appName = 'Java Code App';
+  static const Size appDesignSize = Size(428, 926);
 
   // Location information
   static const double locationLatitude = -7.9423;
