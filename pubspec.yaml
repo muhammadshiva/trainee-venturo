@@ -48,6 +48,8 @@ dependencies:
   sentry_flutter: ^7.9.0
   app_settings: ^5.0.0
   connectivity_plus: ^4.0.2
+  geolocator: ^10.0.0
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:
