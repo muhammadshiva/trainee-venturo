@@ -30,7 +30,7 @@ class User extends Equatable {
         email: json["email"],
         nama: json["nama"],
         pin: json["pin"],
-        foto: json["foto"],
+        foto: json["foto"] ?? "",
         mRolesId: json["m_roles_id"],
         isGoogle: json["is_google"],
         isCustomer: json["is_customer"],
