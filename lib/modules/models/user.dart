@@ -35,7 +35,7 @@ class User extends Equatable {
         isGoogle: json["is_google"],
         isCustomer: json["is_customer"],
         roles: json["roles"],
-        akses: Akses.fromJson(json["akses"]),
+        akses: json["akses"] == null ? null : Akses.fromJson(json["akses"]),
       );
 
   Map<String, dynamic> toJson() => {
