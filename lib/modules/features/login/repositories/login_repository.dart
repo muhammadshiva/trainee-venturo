@@ -23,4 +23,20 @@ class LoginRepository {
       return UserResponse(statusCode: 500, message: 'Server error'.tr);
     }
   }
+
+  /// Call API for login using google account
+  static Future<UserResponse> getUserFromGoogle(String nama, String email) async {
+    try {
+      // Call API login using post method
+      var response = await _dio.post(ApiConst.login, data: {
+        'nama': nama,
+        'email': email,
+        'is_google': 'is_google',
+      });
+
+      return UserResponse.fromLoginJson(response.data);
+    } on DioError {
+      return UserResponse(statusCode: 500, message: 'Server error'.tr);
+    }
+  }
 }
