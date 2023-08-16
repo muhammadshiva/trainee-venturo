@@ -5,6 +5,7 @@ import 'package:coffee_app/modules/features/login/view/components/login_button_g
 import 'package:coffee_app/modules/features/login/view/components/text_field_email.dart';
 import 'package:coffee_app/modules/features/login/view/components/text_field_password.dart';
 import 'package:coffee_app/shared/widgets/primary_button.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -18,8 +19,17 @@ class LoginView extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  // Initialize Firebase Analytics
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   Widget build(BuildContext context) {
+    // Firebase Analytics Usage
+    analytics.setCurrentScreen(
+      screenName: 'Login Screen',
+      screenClassOverride: 'Login',
+    );
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

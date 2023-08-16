@@ -3,6 +3,7 @@ import 'package:coffee_app/modules/models/user.dart';
 import 'package:coffee_app/utils/services/api_services.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class LoginRepository {
   LoginRepository._();
@@ -19,7 +20,10 @@ class LoginRepository {
       });
 
       return UserResponse.fromLoginJson(response.data);
-    } on DioError {
+    } on DioError catch (e) {
+      // Usie Sentry.captureException for send error to Sentry
+      Sentry.captureException(e);
+
       return UserResponse(statusCode: 500, message: 'Server error'.tr);
     }
   }
@@ -28,14 +32,19 @@ class LoginRepository {
   static Future<UserResponse> getUserFromGoogle(String nama, String email) async {
     try {
       // Call API login using post method
-      var response = await _dio.post(ApiConst.login, data: {
-        'nama': nama,
-        'email': email,
-        'is_google': 'is_google',
-      });
+      var response = await _dio.post(
+        ApiConst.login,
+        data: {
+          'nama': nama,
+          'email': email,
+          'is_google': 'is_google',
+        },
+      );
 
       return UserResponse.fromLoginJson(response.data);
-    } on DioError {
+    } on DioError catch (e) {
+      // Usie Sentry.captureException for send error to Sentry
+      Sentry.captureException(e);
       return UserResponse(statusCode: 500, message: 'Server error'.tr);
     }
   }
