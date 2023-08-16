@@ -3,7 +3,9 @@ import 'package:coffee_app/modules/features/login/repositories/login_repository.
 import 'package:coffee_app/modules/models/user.dart';
 import 'package:coffee_app/shared/customs/error_snack_bar.dart';
 import 'package:coffee_app/utils/services/local_db_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   static LoginController get to => Get.find<LoginController>();
@@ -36,6 +38,44 @@ class LoginController extends GetxController {
         ErrorSnackBar(
           title: 'Something went wrong'.tr,
           message: userResponse.message ?? 'Unkown error'.tr,
+        ),
+      );
+    }
+  }
+
+  // Login by google account
+  Future<void> loginWithGoogle() async {
+    /// Singleton GoogleSignIn
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    // Sign out dari akun saat ini (apabila ada) dan sign in
+    await googleSignIn.signOut();
+
+    // Request login dengan akun google
+    GoogleSignInAccount? account = await googleSignIn.signIn();
+
+    // If account is null
+    if (account == null) return;
+
+    // Call API repository
+    UserResponse userResponse = await LoginRepository.getUserFromGoogle(
+      account.displayName ?? '-',
+      account.email,
+    );
+
+    if (userResponse.statusCode == 200) {
+      // Set token and user
+      await LocalDBServices.setUser(userResponse.user!);
+      await LocalDBServices.setToken(userResponse.token!);
+
+      // Going to dashboard page;
+      Get.offAllNamed('/dashboard');
+    } else {
+      // Show error unknow snackbar
+      Get.showSnackbar(
+        ErrorSnackBar(
+          title: 'Something went wrong'.tr,
+          message: 'Unknown error'.tr,
         ),
       );
     }
