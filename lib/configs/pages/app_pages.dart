@@ -1,3 +1,6 @@
+import 'package:coffee_app/configs/routes/app_routes.dart';
+import 'package:coffee_app/modules/features/splash/controllers/splash_binding.dart';
+import 'package:coffee_app/modules/features/splash/view/ui/splash_view.dart';
 import 'package:get/get.dart';
 
 class AppPages {
@@ -7,6 +10,11 @@ class AppPages {
   static List<GetPage> pages() {
     return [
       // Authentication
+      GetPage(
+        name: AppRoutes.splashView,
+        page: () => SplashView(),
+        binding: SplashBinding(),
+      ),
     ];
   }
 }
