@@ -9,8 +9,8 @@ class AppConst {
   static const Size appDesignSize = Size(428, 926);
 
   // Location information
-  static const double locationLatitude = -7.9423;
-  static const double locationLongitude = 112.6230;
+  static const double locationLatitude = -7.877427;
+  static const double locationLongitude = 112.6698827;
   static const double maximumDistance = 100;
 
 // Menu information
