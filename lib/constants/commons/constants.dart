@@ -7,6 +7,8 @@ class AppConst {
   // App information
   static const String appName = 'Java Code App';
   static const Size appDesignSize = Size(428, 926);
+  static const String appLink = 'https://promo.trainee.landa.id';
+  static const String appDeepLink = 'landa://javacode.app';
 
   // Location information
   static const double locationLatitude = -7.877427;
