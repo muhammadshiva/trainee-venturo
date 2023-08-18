@@ -1,10 +1,12 @@
 import 'package:coffee_app/configs/routes/app_routes.dart';
 import 'package:coffee_app/modules/features/dashboard/view/activate_location_view.dart';
 import 'package:coffee_app/modules/features/dashboard/view/get_location_view.dart';
+import 'package:coffee_app/modules/global_controller/global_controller.dart';
 import 'package:coffee_app/utils/services/location_services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:uni_links/uni_links.dart';
 
 class DashboardController extends GetxController {
   static DashboardController get to => Get.find<DashboardController>();
@@ -14,7 +16,7 @@ class DashboardController extends GetxController {
     super.onReady();
 
     // Look for location
-    getLocation();
+    getLocation().then((_) => uniLinksCheck());
     LocationServices.streamService.listen((status) => getLocation());
   }
 
@@ -77,6 +79,15 @@ class DashboardController extends GetxController {
       /// Jika terjadi kesalahan server
       statusLocation.value = 'error';
       messageLocation.value = 'Server error'.tr;
+    }
+  }
+
+  Future<void> uniLinksCheck() async {
+    /// Mendapatkan uri saat ini
+    var uri = await getInitialUri();
+    if (uri != null) {
+      /// Jika ada uri, proses uni links
+      GlobalController.to.processUniLinks(uri);
     }
   }
 }
