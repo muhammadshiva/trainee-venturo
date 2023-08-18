@@ -21,7 +21,7 @@ class Promo extends Equatable {
     required this.nominal,
     required this.kadaluarsa,
     required this.syaratKetentuan,
-    required this.foto,
+    this.foto,
   });
 
   /// From Json
@@ -87,12 +87,12 @@ class ListPromoResponse {
 }
 
 class PromoResponse {
-  final int status_code;
+  final int statusCode;
   final String? message;
   final Promo? data;
 
   const PromoResponse({
-    required this.status_code,
+    required this.statusCode,
     this.message,
     this.data,
   });
@@ -100,7 +100,7 @@ class PromoResponse {
   /// From Json
   factory PromoResponse.fromJson(Map<String, dynamic> json) {
     return PromoResponse(
-      status_code: json['status_code'] as int,
+      statusCode: json['status_code'] as int,
       message: json['message'] as String?,
       data: json['status_code'] == 200 ? Promo.fromJson(json['data']) : null,
     );
