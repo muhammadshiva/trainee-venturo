@@ -35,4 +35,7 @@ class ApiConst {
   /// Review
   static const String allReview = '$baseUrl/review';
   static const String addReview = '$baseUrl/review/add';
+
+  /// Firebase Cloud Messaging
+  static const String firebaseCloudMessaging = 'https://fcm.googleapis.com/fcm/send';
 }
