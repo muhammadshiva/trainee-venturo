@@ -50,25 +50,23 @@ class Voucher extends Equatable {
   List<Object?> get props => [id_voucher];
 }
 
-class ListVoucherRes {
+class ListVoucherResponse {
   final int status_code;
   final String? message;
   final List<Voucher>? data;
 
-  ListVoucherRes({
+  ListVoucherResponse({
     required this.status_code,
     this.message,
     this.data,
   });
 
   /// From json
-  factory ListVoucherRes.fromJson(Map<String, dynamic> json) {
-    return ListVoucherRes(
+  factory ListVoucherResponse.fromJson(Map<String, dynamic> json) {
+    return ListVoucherResponse(
       status_code: json['status_code'] as int,
       message: json['message'] as String?,
-      data: json['status_code'] == 200
-          ? json['data'].map<Voucher>((e) => Voucher.fromJson(e)).toList()
-          : null,
+      data: json['status_code'] == 200 ? json['data'].map<Voucher>((e) => Voucher.fromJson(e)).toList() : null,
     );
   }
 }
