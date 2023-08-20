@@ -1,6 +1,7 @@
 import 'package:coffee_app/configs/routes/app_routes.dart';
 import 'package:coffee_app/configs/theme/colors.dart';
 import 'package:coffee_app/constants/core/asset_const.dart';
+import 'package:coffee_app/modules/features/cart/controllers/cart_controller.dart';
 import 'package:coffee_app/modules/features/home/controllers/home_controller.dart';
 import 'package:coffee_app/modules/features/home/view/components/filter_menu.dart';
 import 'package:coffee_app/modules/features/home/view/components/loading_menu_list.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -36,25 +38,25 @@ class HomeView extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // FocusScope.of(context).unfocus();
-                // Get.toNamed(AppRoutes.cartView);
+                FocusScope.of(context).unfocus();
+                Get.toNamed(AppRoutes.cartView);
               },
               splashRadius: 30.r,
               visualDensity: VisualDensity.compact,
-              icon: Icon(Icons.shopping_cart, size: 30.r),
               // SHOPPING CART
-              // icon: Obx(
-              //   () => Badge(
-              //     // showBadge: CartController.to.cart.isNotEmpty,
-              //     // badgeColor: AppColor.blueColor,
-              //     // badgeContent: Text(
-              //     //   CartController.to.cart.length.toString(),
-              //     //   style: Get.textTheme.labelMedium!
-              //     //       .copyWith(color: Colors.white),
-              //     // ),
-              //     child: Icon(Icons.shopping_cart, size: 30.r),
-              //   ),
-              // ),
+              icon: Obx(
+                () => badges.Badge(
+                  showBadge: CartController.to.cart.isNotEmpty,
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: AppColor.blueColor,
+                  ),
+                  badgeContent: Text(
+                    CartController.to.cart.length.toString(),
+                    style: Get.textTheme.labelMedium!.copyWith(color: Colors.white),
+                  ),
+                  child: Icon(Icons.shopping_cart, size: 30.r),
+                ),
+              ),
               color: Colors.black,
             ),
           ],
