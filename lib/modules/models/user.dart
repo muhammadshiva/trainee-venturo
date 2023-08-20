@@ -1,3 +1,4 @@
+import 'package:coffee_app/utils/extensions/date_extension.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
@@ -11,6 +12,9 @@ class User extends Equatable {
   int isCustomer;
   String roles;
   Akses? akses;
+  DateTime? tglLahir;
+  String? telepon;
+  String? ktp;
 
   User({
     required this.idUser,
@@ -23,6 +27,9 @@ class User extends Equatable {
     required this.isCustomer,
     required this.roles,
     this.akses,
+    this.tglLahir,
+    this.telepon,
+    this.ktp,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -31,11 +38,14 @@ class User extends Equatable {
         nama: json["nama"],
         pin: json["pin"],
         foto: json["foto"] ?? "",
-        mRolesId: json["m_roles_id"],
+        mRolesId: json["m_roles_id"] ?? 0,
         isGoogle: json["is_google"],
         isCustomer: json["is_customer"],
         roles: json["roles"],
         akses: json["akses"] == null ? null : Akses.fromJson(json["akses"]),
+        tglLahir: json['tgl_lahir'] != null ? DateTime.parse(json['tgl_lahir'] as String) : null,
+        telepon: json['telepon'] as String?,
+        ktp: json['ktp'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,6 +59,8 @@ class User extends Equatable {
         "is_customer": isCustomer,
         "roles": roles,
         "akses": akses!.toJson(),
+        'telepon': telepon,
+        'ktp': ktp,
       };
 
   /// To Map
@@ -63,6 +75,9 @@ class User extends Equatable {
       'm_roles_id': mRolesId,
       'is_google': isGoogle,
       'is_customer': isCustomer,
+      'tgl_lahir': tglLahir == null ? null : tglLahir!.toDateString(),
+      'telepon': telepon,
+      'ktp': ktp,
     };
   }
 
@@ -76,6 +91,9 @@ class User extends Equatable {
     mRolesId: 0,
     isGoogle: 0,
     isCustomer: 0,
+    tglLahir: null,
+    telepon: '',
+    ktp: '',
   );
 
   @override
