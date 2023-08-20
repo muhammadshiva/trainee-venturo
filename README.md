@@ -1,4 +1,4 @@
-# coffee_app
+# trainee-venturo
 
 A new Flutter project.
 
