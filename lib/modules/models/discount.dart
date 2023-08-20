@@ -43,25 +43,23 @@ class Discount extends Equatable {
   List<Object?> get props => [id_diskon];
 }
 
-class ListDiscountRes {
+class ListDiscountResponse {
   final int status_code;
   final String? message;
   final List<Discount>? data;
 
-  const ListDiscountRes({
+  const ListDiscountResponse({
     required this.status_code,
     this.message,
     this.data,
   });
 
   /// From json
-  factory ListDiscountRes.fromJson(Map<String, dynamic> json) {
-    return ListDiscountRes(
+  factory ListDiscountResponse.fromJson(Map<String, dynamic> json) {
+    return ListDiscountResponse(
       status_code: json['status_code'] as int,
       message: json['message'] as String?,
-      data: json['status_code'] == 200
-          ? json['data'].map<Discount>((e) => Discount.fromJson(e)).toList()
-          : null,
+      data: json['status_code'] == 200 ? json['data'].map<Discount>((e) => Discount.fromJson(e)).toList() : null,
     );
   }
 }
