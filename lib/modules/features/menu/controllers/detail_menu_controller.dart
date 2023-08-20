@@ -1,7 +1,10 @@
+import 'package:coffee_app/configs/routes/app_routes.dart';
+import 'package:coffee_app/modules/features/cart/controllers/cart_controller.dart';
 import 'package:coffee_app/modules/features/menu/repositories/menu_repository.dart';
 import 'package:coffee_app/modules/features/menu/view/components/level_bottom_sheet.dart';
 import 'package:coffee_app/modules/features/menu/view/components/note_bottom_sheet.dart';
 import 'package:coffee_app/modules/features/menu/view/components/topping_bottom_sheet.dart';
+import 'package:coffee_app/modules/models/cart_item.dart';
 import 'package:coffee_app/modules/models/menu.dart';
 import 'package:coffee_app/shared/styles/shapes.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +41,7 @@ class DetailMenuController extends GetxController {
     fetch();
 
     /// Update data from cart
-    // updateDataFromCart();
+    updateDataFromCart();
   }
 
   void fetch() {
@@ -72,19 +75,19 @@ class DetailMenuController extends GetxController {
     });
   }
 
-  // void updateDataFromCart() {
-  //   /// Cari apakah sudah ada dikeranjang
-  //   final cartOrderDetail = CartController.to.cart.firstWhereOrNull((e) => e.menu.id_menu == menu.value?.id_menu);
+  void updateDataFromCart() {
+    /// Cari apakah sudah ada dikeranjang
+    final cartOrderDetail = CartController.to.cart.firstWhereOrNull((e) => e.menu.idMenu == menu.value?.idMenu);
 
-  //   /// Jika ada dikeranjang, update data keranjang
-  //   if (cartOrderDetail != null) {
-  //     isExistsInCart.value = true;
-  //     selectedLevel.value = cartOrderDetail.level;
-  //     note.value = cartOrderDetail.note;
-  //     selectedToppings.value = cartOrderDetail.toppings?.toList() ?? [];
-  //     quantity.value = cartOrderDetail.quantity;
-  //   }
-  // }
+    /// Jika ada dikeranjang, update data keranjang
+    if (cartOrderDetail != null) {
+      isExistsInCart.value = true;
+      selectedLevel.value = cartOrderDetail.level;
+      note.value = cartOrderDetail.note;
+      selectedToppings.value = cartOrderDetail.toppings?.toList() ?? [];
+      quantity.value = cartOrderDetail.quantity;
+    }
+  }
 
   /// On increment quantity
   void onIncrement() {
@@ -160,31 +163,31 @@ class DetailMenuController extends GetxController {
   String get selectedToppingsText =>
       selectedToppings.isNotEmpty ? selectedToppings.map((topping) => topping.keterangan).join(', ') : 'Choose topping'.tr;
 
-  // /// Getter untuk Cart Item
-  // CartItem get cartItem => CartItem(
-  //     menu: menu.value!,
-  //     quantity: quantity.value,
-  //     note: note.value,
-  //     level: selectedLevel.value,
-  //     toppings: toppings.isEmpty ? null : selectedToppings.toList());
+  /// Getter untuk Cart Item
+  CartItem get cartItem => CartItem(
+      menu: menu.value!,
+      quantity: quantity.value,
+      note: note.value,
+      level: selectedLevel.value,
+      toppings: toppings.isEmpty ? null : selectedToppings.toList());
 
-  // /// Tambahkan menu ke keranjang
-  // void addToCart() {
-  //   if (status.value == 'success' && (selectedLevel.value != null || levels.isEmpty)) {
-  //     CartController.to.add(cartItem);
-  //     Get.offNamedUntil(
-  //       AppRoutes.cartView,
-  //       ModalRoute.withName(AppRoutes.dashboardView),
-  //     );
-  //   }
-  // }
+  /// Tambahkan menu ke keranjang
+  void addToCart() {
+    if (status.value == 'success' && (selectedLevel.value != null || levels.isEmpty)) {
+      CartController.to.add(cartItem);
+      Get.offNamedUntil(
+        AppRoutes.cartView,
+        ModalRoute.withName(AppRoutes.dashboardView),
+      );
+    }
+  }
 
-  // /// Hapus dari keranjang
-  // void deleteFromCart() {
-  //   CartController.to.remove(cartItem);
-  //   Get.offNamedUntil(
-  //     AppRoutes.cartView,
-  //     ModalRoute.withName(AppRoutes.dashboardView),
-  //   );
-  // }
+  /// Hapus dari keranjang
+  void deleteFromCart() {
+    CartController.to.remove(cartItem);
+    Get.offNamedUntil(
+      AppRoutes.cartView,
+      ModalRoute.withName(AppRoutes.dashboardView),
+    );
+  }
 }

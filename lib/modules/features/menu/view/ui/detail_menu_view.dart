@@ -9,6 +9,7 @@ import 'package:coffee_app/shared/widgets/primary_button.dart';
 import 'package:coffee_app/shared/widgets/quantity_counter.dart';
 import 'package:coffee_app/shared/widgets/rect_shimmer.dart';
 import 'package:coffee_app/shared/widgets/tile_option.dart';
+import 'package:coffee_app/utils/extensions/currency_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,15 +100,14 @@ class DetailMenuView extends StatelessWidget {
                   ),
                   40.verticalSpacingRadius,
                   Divider(color: AppColor.darkColor2.withOpacity(0.25), height: 2.r),
-                  // Obx(
-                  //   () => TileOption(
-                  //     icon: AssetConst.iconPrice,
-                  //     title: 'Price'.tr,
-                  //     message: '10000',
-                  //     // message: DetailMenuController.to.cartItem.price.toRupiah(),
-                  //     messageStyle: Get.textTheme.headlineSmall!.copyWith(color: AppColor.blueColor),
-                  //   ),
-                  // ),
+                  Obx(
+                    () => TileOption(
+                      icon: AssetConst.iconPrice,
+                      title: 'Price'.tr,
+                      message: DetailMenuController.to.cartItem.price.toRupiah(),
+                      messageStyle: Get.textTheme.headlineSmall!.copyWith(color: AppColor.blueColor),
+                    ),
+                  ),
                   Obx(
                     () => ConditionalSwitch.single(
                       context: context,
@@ -205,13 +205,11 @@ class DetailMenuView extends StatelessWidget {
                                 conditionBuilder: (context) => DetailMenuController.to.quantity > 0,
                                 widgetBuilder: (context) => PrimaryButton(
                                   text: DetailMenuController.to.isExistsInCart.value ? 'Update to order'.tr : 'Add to order'.tr,
-                                  onPressed: () {},
-                                  // onPressed: DetailMenuController.to.addToCart,
+                                  onPressed: DetailMenuController.to.addToCart,
                                 ),
                                 fallbackBuilder: (context) => DangerButton(
                                   text: 'Delete from order'.tr,
-                                  onPressed: () {},
-                                  // onPressed: DetailMenuController.to.deleteFromCart,
+                                  onPressed: DetailMenuController.to.deleteFromCart,
                                 ),
                               ),
                             ),
