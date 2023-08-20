@@ -1,3 +1,4 @@
+import 'package:coffee_app/modules/features/cart/controllers/cart_controller.dart';
 import 'package:coffee_app/modules/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:coffee_app/modules/features/home/controllers/home_controller.dart';
 import 'package:coffee_app/modules/features/order/controllers/order_controller.dart';
@@ -11,6 +12,7 @@ class DashboardBinding extends Bindings {
     Get.put(DashboardController());
 
     // Initialize cart controller
+    Get.lazyPut(() => CartController());
 
     /// Inisialisasi home, order, profile
     Get.lazyPut(() => HomeController());
