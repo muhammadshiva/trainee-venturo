@@ -1,9 +1,10 @@
+import 'package:coffee_app/configs/localizations/localization.dart';
 import 'package:coffee_app/configs/pages/app_pages.dart';
 import 'package:coffee_app/configs/routes/app_routes.dart';
 import 'package:coffee_app/configs/theme/light_theme.dart';
 import 'package:coffee_app/constants/commons/constants.dart';
-import 'package:coffee_app/firebase_options.dart';
 import 'package:coffee_app/modules/global_controller/global_binding.dart';
+import 'package:coffee_app/utils/services/notification_services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,10 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  ///  Firebase
+  await Firebase.initializeApp();
+  await NotificationServices.init();
 
   await SentryFlutter.init(
     (options) {
@@ -51,7 +53,16 @@ class MyApp extends StatelessWidget {
         title: AppConst.appName,
         initialRoute: AppRoutes.splashView,
         getPages: AppPages.pages(),
+        translations: Localization(),
+        locale: Localization.locale,
+        fallbackLocale: Localization.fallbackLocale,
         theme: AppTheme.lightTheme,
+        // localizationsDelegates: const [
+        //   GlobalMaterialLocalizations.delegate,
+        //   GlobalWidgetsLocalizations.delegate,
+        //   GlobalCupertinoLocalizations.delegate,
+        // ],
+        // supportedLocales: Localization.locales,
       ),
     );
   }
