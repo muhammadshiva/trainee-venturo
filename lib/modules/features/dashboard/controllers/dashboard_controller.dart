@@ -40,21 +40,28 @@ class DashboardController extends GetxController {
     final locationResult = await LocationServices.getCurrentPosition();
 
     if (Get.isDialogOpen == false) {
-      if (locationResult.message == "Location service not enabled") {
-        print('Location service not enabled');
-        Get.dialog(
-          ActivateLocationView(
-            statusLocation: statusLocation.value,
-          ),
-          barrierDismissible: false,
-        );
-      } else {
-        Get.dialog(
-          const GetLocationView(),
-          barrierDismissible: false,
-        );
-      }
+      Get.dialog(
+        const GetLocationView(),
+        barrierDismissible: false,
+      );
     }
+
+    // if (Get.isDialogOpen == false) {
+    //   if (locationResult.message == "Location service not enabled") {
+    //     print('Location service not enabled');
+    //     Get.dialog(
+    //       ActivateLocationView(
+    //         statusLocation: statusLocation.value,
+    //       ),
+    //       barrierDismissible: false,
+    //     );
+    //   } else {
+    //     Get.dialog(
+    //       const GetLocationView(),
+    //       barrierDismissible: false,
+    //     );
+    //   }
+    // }
 
     try {
       /// Mendapatkan lokasi saat ini
