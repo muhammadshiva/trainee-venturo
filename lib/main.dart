@@ -7,6 +7,7 @@ import 'package:coffee_app/modules/global_controller/global_binding.dart';
 import 'package:coffee_app/utils/services/notification_services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,8 @@ void main() async {
   ///  Firebase
   await Firebase.initializeApp();
   await NotificationServices.init();
+  final String? fcmToken = await FirebaseMessaging.instance.getToken();
+  print('FCM Token : $fcmToken');
 
   await SentryFlutter.init(
     (options) {
